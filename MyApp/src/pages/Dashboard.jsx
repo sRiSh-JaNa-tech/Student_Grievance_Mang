@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import GrievanceForm from '../components/GrievanceForm';
 import GrievanceCard from '../components/GrievanceCard';
+import API_BASE_URL from '../config';
 
 const Dashboard = () => {
   const { user, token, logout } = useContext(AuthContext);
@@ -16,19 +17,19 @@ const Dashboard = () => {
   const fetchGrievances = async (searchQuery = '', type = 'title') => {
     try {
       setLoading(true);
-      let url = 'http://localhost:5000/api/grievances';
+      let url = `${API_BASE_URL}/api/grievances`;
 
       if (searchQuery) {
         if (type === 'id') {
           if (searchQuery.length === 24 && /^[0-9a-fA-F]{24}$/.test(searchQuery)) {
-            url = `http://localhost:5000/api/grievances/${searchQuery}`;
+            url = `${API_BASE_URL}/api/grievances/${searchQuery}`;
           } else {
             setGrievances([]);
             setLoading(false);
             return;
           }
         } else {
-          url = `http://localhost:5000/api/grievances/search?title=${searchQuery}`;
+          url = `${API_BASE_URL}/api/grievances/search?title=${searchQuery}`;
         }
       }
 
@@ -56,11 +57,11 @@ const Dashboard = () => {
   const handleSubmit = async (data) => {
     try {
       if (editingGrievance) {
-        await axios.put(`http://localhost:5000/api/grievances/${editingGrievance._id}`, data, {
+        await axios.put(`${API_BASE_URL}/api/grievances/${editingGrievance._id}`, data, {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post('http://localhost:5000/api/grievances', data, {
+        await axios.post(`${API_BASE_URL}/api/grievances`, data, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }
@@ -75,7 +76,7 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this grievance?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/grievances/${id}`, {
+        await axios.delete(`${API_BASE_URL}/api/grievances/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         fetchGrievances();

@@ -8,8 +8,8 @@ const authRouter = require("./routers/authRouter");
 const app = express();
 
 app.use(cors({
-  origin: true, // adjust origin if needed
-  methods: ["GET","POST","PUT","DELETE"],
+  origin: 'https://student-grievance-mang.onrender.com',
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
