@@ -9,10 +9,24 @@ const authRouter = require("./routers/authRouter");
 
 const app = express();
 
-// CORS setup
+// CORS setup — whitelist all known frontend origins
+const allowedOrigins = [
+  'https://student-grievance-mang.onrender.com',   // Render frontend
+  'https://student-grievance-service.onrender.com', // alt frontend URL
+  'http://localhost:5173',                           // Vite dev server
+  'http://localhost:3000',
+];
+
 app.use(cors({
-  origin: 'https://student-grievance-mang.onrender.com',
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS policy: origin ${origin} not allowed`));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   credentials: true
 }));
 
