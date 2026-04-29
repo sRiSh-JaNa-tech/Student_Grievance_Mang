@@ -455,3 +455,17 @@ input:focus, select:focus, textarea:focus {
   color: var(--text-muted);
   font-size: 0.95rem;
 }
+
+/* ========================
+   SITE FOOTER
+   ======================== */
+.site-footer {
+  margin-top: auto;
+  padding: 1.25rem 0 0.5rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+

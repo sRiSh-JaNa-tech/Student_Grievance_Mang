@@ -53,6 +53,9 @@ function App() {
               } 
             />
           </Routes>
+          <footer className="site-footer">
+            <span>Made by <span className="footer-name">Srish Jana</span></span>
+          </footer>
         </div>
       </BrowserRouter>
     </AuthProvider>
